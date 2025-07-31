@@ -1,0 +1,174 @@
+<!-- admineval.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Evaluation Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    select {
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Evaluation Page</h1>
+    <table id="evaluationTable" border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Position</th>
+          <th>Years Experience</th>
+          <th>Student Feedback</th>
+          <th>Eligibility</th>
+          <th>Admin Review</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button onclick="generateReport()">Go to Faculty Report</button>
+  </div>
+
+  <script>
+    const submissions = JSON.parse(localStorage.getItem('promotionSubmissions')) || [];
+    const feedbackList = JSON.parse(localStorage.getItem('facultyFeedback')) || [];
+    const tableBody = document.querySelector('#evaluationTable tbody');
+
+    submissions.forEach((submission, index) => {
+      const facultyFeedbacks = feedbackList.filter(fb => fb.facultyEmail === submission.email);
+
+      let feedbackText = 'No feedback yet';
+      if (facultyFeedbacks.length > 0) {
+        feedbackText = facultyFeedbacks.map(fb => 
+          `Rating: ${fb.rating}/5<br>Comment: ${fb.feedback}<br><i>- ${fb.studentName}</i><hr>`
+        ).join('');
+      }
+
+      const row = document.createElement('tr');
+      row.setAttribute('data-index', index);
+      row.innerHTML = `
+        <td>${submission.name}</td>
+        <td>${submission.email}</td>
+        <td>${submission.department}</td>
+        <td>${submission.currentPosition}</td>
+        <td>${submission.yearsExperience}</td>
+        <td>${feedbackText}</td>
+        <td>${submission.eligibility ? 'Yes' : 'No'}</td>
+        <td><textarea id="review-${index}" rows="3"></textarea></td>
+        <td>
+          <select id="decision-${index}" onchange="handleDecision(${index})">
+            <option value="Pending">Pending</option>
+            <option value="Granted">Granted</option>
+            <option value="Not Granted">Not Granted</option>
+          </select>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    function handleDecision(index) {
+      const decision = document.getElementById(`decision-${index}`).value;
+      const review = document.getElementById(`review-${index}`).value;
+      const submission = submissions[index];
+
+      if (decision === "Granted") {
+        const report = {
+          name: submission.name,
+          email: submission.email,
+          department: submission.department,
+          position: submission.currentPosition,
+          experience: submission.yearsExperience,
+          review: review,
+          approved: true,
+          recommendations: ['Webinar on Advanced Teaching', 'Course on Leadership']
+        };
+
+        const grantedReports = JSON.parse(localStorage.getItem("facultyEvaluations")) || [];
+        grantedReports.push(report);
+        localStorage.setItem("facultyEvaluations", JSON.stringify(grantedReports));
+
+        submissions.splice(index, 1);
+        localStorage.setItem('promotionSubmissions', JSON.stringify(submissions));
+
+        window.location.href = 'facreport.html';
+      }
+    }
+
+    function generateReport() {
+      window.location.href = 'facreport.html';
+    }
+  </script>
+</body>
+</html>

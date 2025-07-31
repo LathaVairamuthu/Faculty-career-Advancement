@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color:rgb(38, 145, 233);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .preview img {
+            max-width: 150px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Faculty Profile</h2>
+        <form id="faculty-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label for="number">Phone Number:</label>
+            <input type="text" id="number" name="number" placeholder="Enter your phone number" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="achievements">Achievements:</label>
+            <textarea id="achievements" name="achievements" placeholder="Enter your achievements" rows="4" required></textarea>
+
+            <label for="certificates">Certificates:</label>
+            <input type="file" id="certificates" name="certificates" accept="image/*" required>
+
+            <div class="preview" id="certificatesPreview"></div>
+
+            <label for="biodata">Biodata:</label>
+            <textarea id="biodata" name="biodata" placeholder="Enter your biodata" rows="4" required></textarea>
+
+            <label for="experience">Experience:</label>
+            <textarea id="experience" name="experience" placeholder="Enter your experience" rows="4" required></textarea>
+
+            <label for="image">Profile Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+
+            <div class="preview" id="imagePreview"></div>
+
+            <button type="submit">Save Profile</button><br>
+            <button type="button" id="edit-btn">Edit Profile</button>
+        </form>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('image');
+        const previewContainer = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function () {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    previewContainer.innerHTML = '';
+                    previewContainer.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const form = document.getElementById('faculty-form');
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const data = {};
+
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            try {
+                const response = await fetch('http://localhost:3001/api/faculty/profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Profile saved successfully!');
+                    window.location.href = '/recommendations.html';
+                } else {
+                    alert('Failed to save profile.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while saving profile.');
+            }
+        });
+
+        const editButton = document.getElementById('edit-btn');
+        editButton.addEventListener('click', function () {
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => input.removeAttribute('readonly'));
+            alert('Edit mode enabled. Make changes and click Save Profile.');
+        });
+    </script>
+</body>
+</html>
