@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faculty Promotion Form</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f0f4ff, #dfe9f3);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 30px;
+}
+
+.container {
+    width: 90%;
+    max-width: 950px;
+    background-color: #ffffff;
+    padding: 30px 40px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fdfdfd;
+    transition: box-shadow 0.3s ease;
+}
+
+fieldset:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.07);
+}
+
+legend {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    padding: 0 10px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+    display: block;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+    background-color: #f9fcf9;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    transform: scale(1.2);
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+button {
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 17px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #3e9142;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+ul {
+    padding-left: 20px;
+    color: #444;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Faculty Promotion Form</h1>
+        <form id="promotionForm">
+            <!-- Eligibility Criteria -->
+            <fieldset>
+                <legend>Eligibility Criteria</legend>
+                <p>Please ensure you meet the following eligibility criteria before applying:</p>
+                <ul>
+                    <li>Minimum 5 years of experience in the current position.</li>
+                    <li>At least 3 published research papers in recognized journals.</li>
+                    <li>Participation in at least 2 academic conferences or workshops.</li>
+                    <li>Evidence of significant contributions to the department or university.</li>
+                </ul>
+                <label for="eligibility">I confirm that I meet the eligibility criteria:</label>
+                <input type="checkbox" id="eligibility" name="eligibility" required />
+            </fieldset>
+
+            <!-- Personal Information -->
+            <fieldset>
+                <legend>Personal Information</legend>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required />
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
+
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required />
+
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" required />
+
+                <label for="currentPosition">Current Position:</label>
+                <input type="text" id="currentPosition" name="currentPosition" required />
+
+                <label for="yearsExperience">Years of Experience:</label>
+                <input type="number" id="yearsExperience" name="yearsExperience" required />
+            </fieldset>
+
+            <!-- Qualifications -->
+            <fieldset>
+                <legend>Qualifications</legend>
+                <label for="highestDegree">Highest Degree Obtained:</label>
+                <input type="text" id="highestDegree" name="highestDegree" required />
+
+                <label for="certifications">Certifications:</label>
+                <textarea id="certifications" name="certifications"></textarea>
+
+                <label for="publications">Publications (if any):</label>
+                <textarea id="publications" name="publications"></textarea>
+            </fieldset>
+
+            <!-- Achievements -->
+            <fieldset>
+                <legend>Achievements</legend>
+                <label for="awards">Awards and Recognitions:</label>
+                <textarea id="awards" name="awards"></textarea>
+
+                <label for="projects">Projects Undertaken:</label>
+                <textarea id="projects" name="projects"></textarea>
+            </fieldset>
+
+            <!-- Promotion Details -->
+            <fieldset>
+                <legend>Promotion Details</legend>
+                <label for="desiredPosition">Desired Position:</label>
+                <input type="text" id="desiredPosition" name="desiredPosition" required />
+
+                <label for="justification">Justification for Promotion:</label>
+                <textarea id="justification" name="justification" required></textarea>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <div class="button-container">
+                <button type="submit">Submit Application</button>
+            </div>
+        </form>
+
+        <!-- Logout Button -->
+        <div class="button-container">
+            <button onclick="window.location.href='home.html'">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('promotionForm');
+      
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+      
+          // Gather inputs
+          const eligibilityChecked = document.getElementById('eligibility').checked;
+          const yearsExperience = parseInt(document.getElementById('yearsExperience').value, 10);
+          const publications = document.getElementById('publications').value.trim();
+          const certifications = document.getElementById('certifications').value.trim();
+          const justification = document.getElementById('justification').value.trim();
+      
+          // Custom validation logic
+          let errors = [];
+      
+          if (!eligibilityChecked) {
+            errors.push("You must confirm that you meet the eligibility criteria.");
+          }
+      
+          if (isNaN(yearsExperience) || yearsExperience < 5) {
+            errors.push("Minimum 5 years of experience is required.");
+          }
+      
+          const pubCount = publications.split('\n').filter(line => line.trim() !== "").length;
+          if (pubCount < 3) {
+            errors.push("At least 3 publications are required.");
+          }
+      
+          const certCount = certifications.split('\n').filter(line => line.trim() !== "").length;
+          if (certCount < 2) {
+            errors.push("Participation in at least 2 academic conferences or workshops is required.");
+          }
+      
+          if (justification.length < 20) {
+            errors.push("Justification must be at least 20 characters.");
+          }
+      
+          if (errors.length > 0) {
+            alert("Please fix the following issues before submitting:\n\n" + errors.join('\n'));
+            return;
+          }
+      
+          // If all validations pass, proceed to store form data
+          const formData = {
+            eligibility: eligibilityChecked,
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            department: document.getElementById('department').value,
+            currentPosition: document.getElementById('currentPosition').value,
+            yearsExperience: yearsExperience,
+            highestDegree: document.getElementById('highestDegree').value,
+            certifications: certifications,
+            publications: publications,
+            awards: document.getElementById('awards').value,
+            projects: document.getElementById('projects').value,
+            desiredPosition: document.getElementById('desiredPosition').value,
+            justification: justification
+          };
+      
+          let submissions = JSON.parse(localStorage.getItem('promotionSubmissions')) || [];
+          submissions.push(formData);
+          localStorage.setItem('promotionSubmissions', JSON.stringify(submissions));
+      
+          alert('Application submitted successfully!');
+          form.reset();
+          window.location.href = 'home.html';
+        });
+      </script>
+      
+</body>
+</html>

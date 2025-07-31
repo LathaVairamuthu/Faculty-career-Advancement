@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Recommendations</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #e8f0fe;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button.apply-btn {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.apply-btn:hover {
+            background-color: #218838;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button.submit-suggestion {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.submit-suggestion:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recommendations for Faculty Development</h1>
+
+        <section>
+            <h2>Webinars</h2>
+            <ul id="webinars">
+                <li>Advanced Research Methodologies - January 15, 2025 <button class="apply-btn">Apply</button></li>
+                <li>Innovative Teaching Techniques - February 10, 2025 <button class="apply-btn">Apply</button></li>
+                <li>AI and Machine Learning in Education - March 5, 2025 <button class="apply-btn">Apply</button></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Workshops</h2>
+            <ul id="workshops">
+                <li>Data Analytics for Educators - January 20, 2025 <button class="apply-btn">Apply</button></li>
+                <li>Interactive Classroom Tools - February 15, 2025 <button class="apply-btn">Apply</button></li>
+                <li>Curriculum Design Strategies - March 12, 2025 <button class="apply-btn">Apply</button></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>New Courses</h2>
+            <ul id="courses">
+                <li>Cloud Computing Fundamentals - Starting February 2025 <button class="apply-btn">Apply</button></li>
+                <li>Cybersecurity Essentials - Starting March 2025 <button class="apply-btn">Apply</button></li>
+                <li>Machine Learning Applications - Starting April 2025 <button class="apply-btn">Apply</button></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Suggestions</h2>
+            <textarea id="suggestions" rows="5" cols="50" placeholder="Provide suggestions for additional resources..."></textarea>
+            <button id="submitSuggestion" class="submit-suggestion">Submit</button>
+        </section>
+    </div>
+
+    <script>
+        const suggestionButton = document.getElementById('submitSuggestion');
+        const suggestionBox = document.getElementById('suggestions');
+
+        suggestionButton.addEventListener('click', () => {
+            const suggestion = suggestionBox.value;
+            if (suggestion) {
+                alert('Thank you for your suggestion!');
+                suggestionBox.value = '';
+            } else {
+                alert('Please enter a suggestion before submitting.');
+            }
+        });
+
+        const applyButtons = document.querySelectorAll('.apply-btn');
+        applyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert('You have successfully applied for this recommendation.');
+                window.location.href = '/promtion.html';
+            });
+        });
+    </script>
+</body>
+</html>
